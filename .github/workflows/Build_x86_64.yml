@@ -7,7 +7,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: 安装系统更新和软件
-        uses: actions/checkout@master
         env:
           DEBIAN_FRONTEND: noninteractive
           run: |
