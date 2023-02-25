@@ -7,7 +7,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: 准备系统
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
       - name: 安装依赖和更新
         env:
           DEBIAN_FRONTEND: noninteractive
