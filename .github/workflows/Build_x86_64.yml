@@ -3,9 +3,9 @@ on:
   repository_dispatch:
   workflow_dispatch:
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
+    build:
+      runs-on: ubuntu-latest
+      steps:
       - name: 准备系统
         uses: actions/checkout@master
       - name: 安装依赖和更新
@@ -53,4 +53,3 @@ jobs:
             openwrt/bin/targets/x86/64/openwrt-x86-64-generic.manifest
             openwrt/bin/targets/x86/64/config.buildinfo
             openwrt/bin/targets/x86/64/version.buildinfo
-            
