@@ -1,4 +1,4 @@
-name: OpenWrt-CI
+name: OpenWrt-CI-IPV6
 
 on: 
   repository_dispatch:
@@ -40,7 +40,7 @@ jobs:
       
     - name: 自定义配置
       env:
-        CONFIG_FILE: 'x86_64.config'
+        CONFIG_FILE: 'x86_64_ipv6.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -58,5 +58,5 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-x86_64
+        name: OpenWrt-IPV6
         path: openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz
