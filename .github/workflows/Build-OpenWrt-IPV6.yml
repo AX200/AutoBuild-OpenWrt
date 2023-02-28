@@ -68,5 +68,4 @@ jobs:
         name: OpenWrt-IPV6信息(正式版内核)
         path: |
           openwrt/bin/targets/x86/64/openwrt-x86-64-generic.manifest
-          openwrt/bin/targets/x86/64/config.buildinfo          
-          openwrt/bin/targets/x86/64/version.buildinfo
+          openwrt/bin/targets/x86/64/config.buildinfo
