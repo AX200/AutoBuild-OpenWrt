@@ -2,7 +2,7 @@
 sed -i 's/192.168.1.1/192.168.2.1/g' openwrt/package/base-files/files/bin/config_generate
 
 #下载Adguardhome插件
-#git clone https://github.com/rufengsuixing/luci-app-adguardhome.git openwrt/package/luci-app-adguardhome
+git clone https://github.com/rufengsuixing/luci-app-adguardhome.git openwrt/package/luci-app-adguardhome
 
 #下载关机插件
 git clone https://github.com/esirplayground/luci-app-poweroff openwrt/package/luci-app-poweroff
