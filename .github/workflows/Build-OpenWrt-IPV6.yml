@@ -32,9 +32,9 @@ jobs:
       run: |
         chmod +x ./diy.sh && ./diy.sh
 
-    #- name: 修改内核版本
-    #  run: |
-    #    chmod +x ./diy2.sh && ./diy2.sh
+    - name: 修改内核版本
+      run: |
+        chmod +x ./diy2.sh && ./diy2.sh
         
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
