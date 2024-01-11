@@ -1,4 +1,4 @@
-name: OpenWrt-CI-IPV6
+name: OpenWrt-CI-docker
 
 on: 
   repository_dispatch:
