@@ -1,4 +1,4 @@
-name: OpenWrt-CI-IPV6
+name: OpenWrt-CI-TEST
 
 on: 
   repository_dispatch:
