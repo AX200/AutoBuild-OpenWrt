@@ -50,7 +50,7 @@ jobs:
       
     - name: 自定义配置
       env:
-        CONFIG_FILE: 'test.config'
+        CONFIG_FILE: 'x86_64_ipv6.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
