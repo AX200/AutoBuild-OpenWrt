@@ -46,7 +46,7 @@ jobs:
 
     - name: 执行自定义脚本
       run: |
-        chmod +x ./diy2.sh && ./diy2.sh
+        chmod +x ./diy-rax3000m.sh && ./diy-rax3000m.sh
         
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
