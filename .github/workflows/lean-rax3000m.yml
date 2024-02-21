@@ -70,4 +70,4 @@ jobs:
       with:
         name: OpenWrt-LEAN-RAX3000M
         path: |
-          openwrt/bin/targets/mediatek/mt7981
+          openwrt/bin/targets
