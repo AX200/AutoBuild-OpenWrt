@@ -74,6 +74,6 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-CI-RAX3000M
+        name: OpenWrt-RAX3000M
         path: |
           openwrt/bin/targets/mediatek/mt7981
