@@ -40,7 +40,7 @@ jobs:
 
     - name: 执行自定义脚本
       run: |
-        chmod +x ./diy.sh && ./diy.sh
+        chmod +x ./diy-x86.sh && ./diy-x86.sh
         
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
