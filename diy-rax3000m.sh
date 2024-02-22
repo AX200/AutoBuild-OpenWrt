@@ -6,7 +6,7 @@ sed -i 's/192.168.1.1/192.168.10.1/g' openwrt/package/base-files/files/bin/confi
 
 #下载关机插件
 #git clone https://github.com/esirplayground/luci-app-poweroff openwrt/package/luci-app-poweroff
-
+git clone https://github.com/ntlf9t/luci-app-easymesh package/luci-app-easymesh
 #下载Argon主题
 #git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git openwrt/package/lean/luci-theme-argon
 
