@@ -1,4 +1,4 @@
-name: OpenWrt-CI-RAX3000M
+name: OpenWrt-CI-LEAN-RAX3000M-TEST
 
 on: 
   repository_dispatch:
@@ -27,26 +27,20 @@ jobs:
           /etc/php
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
         sudo -E apt-get update
-        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-          bzip2 ccache clang clangd cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
-          g++-multilib git gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev \
-          libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 libncursesw5-dev libreadline-dev \
-          libssl-dev libtool lld lldb lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 \
-          python3 python3-pip python3-ply python-docutils qemu-utils re2c rsync scons squashfs-tools subversion swig \
-          texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev qemu-img
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
     - name: 下载源代码
       env: 
-        REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
-        REPO_BRANCH: openwrt-21.02
+        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
     - name: 执行自定义脚本
       run: |
-        chmod +x ./diy-rax3000m.sh && ./diy-rax3000m.sh
+        chmod +x ./diy-lean-rax3000m.sh && ./diy-lean-rax3000m.sh
         
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
@@ -56,7 +50,7 @@ jobs:
       
     - name: 自定义配置
       env:
-        CONFIG_FILE: 'rax3000m.config'
+        CONFIG_FILE: 'lean-rax3000m-test.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -74,6 +68,6 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-RAX3000M
+        name: OpenWrt-lean-rax3000m-test
         path: |
-          openwrt/bin/targets/mediatek/mt7981
+          openwrt/bin/targets

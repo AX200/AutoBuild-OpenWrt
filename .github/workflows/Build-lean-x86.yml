@@ -1,4 +1,4 @@
-name: OpenWrt-LEAN-RAX3000M
+name: OpenWrt-CI-LEAN-X86
 
 on: 
   repository_dispatch:
@@ -40,7 +40,7 @@ jobs:
 
     - name: 执行自定义脚本
       run: |
-        chmod +x ./diy-lean-rax3000m.sh && ./diy-lean-rax3000m.sh
+        chmod +x ./diy-lean-x86.sh && ./diy-lean-x86.sh
         
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
@@ -50,7 +50,7 @@ jobs:
       
     - name: 自定义配置
       env:
-        CONFIG_FILE: 'lean-rax3000m.config'
+        CONFIG_FILE: 'lean-x86.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -68,6 +68,6 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-LEAN-RAX3000M
+        name: OpenWrt-lean-x86
         path: |
-          openwrt/bin/targets
+          openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz
