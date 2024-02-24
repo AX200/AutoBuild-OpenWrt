@@ -16,3 +16,4 @@ git clone https://github.com/esirplayground/luci-app-poweroff openwrt/package/lu
 #添加Passwall源到feeds文件
 sed -i '$a src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main' openwrt/feeds.conf.default
 sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main' openwrt/feeds.conf.default
+echo 'src-git istore https://github.com/linkease/istore;main' >> openwrt/feeds.conf.default
