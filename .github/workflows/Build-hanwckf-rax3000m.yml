@@ -1,4 +1,4 @@
-name: OpenWrt-CI-RAX3000M-hanwckf
+name: OpenWrt-CI-hanwckf-RAX3000M
 
 on: 
   repository_dispatch:
