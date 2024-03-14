@@ -13,3 +13,6 @@ git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git openwrt/pac
 #添加Passwall源到feeds文件
 #sed -i '$a src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main' openwrt/feeds.conf.default
 #sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main' openwrt/feeds.conf.default
+
+#编译测试版内核
+sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' openwrt/target/linux/mediatek/Makefile
