@@ -68,6 +68,13 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-lean-rax3000m
+        name: OpenWrt-lean-rax3000m-sysupgrade
         path: |
-          openwrt/bin/targets
+          openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin
+    
+    - name : 上传固件
+      uses: actions/upload-artifact@master
+      with:
+        name: OpenWrt-lean-rax3000m-factory
+        path: |
+          openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin
