@@ -8,11 +8,16 @@ git clone https://github.com/rufengsuixing/luci-app-adguardhome.git openwrt/pack
 git clone https://github.com/esirplayground/luci-app-poweroff openwrt/package/luci-app-poweroff
 
 #下载Argon主题
-git clone https://github.com/jerrykuku/luci-theme-argon.git openwrt/package/lean/luci-theme-argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git openwrt/package/lean/luci-theme-argon
+#git clone https://github.com/jerrykuku/luci-theme-argon.git openwrt/package/lean/luci-theme-argon
 
 #添加Passwall源到feeds文件
 sed -i '$a src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main' openwrt/feeds.conf.default
 sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main' openwrt/feeds.conf.default
+
+#修改luci版本
+sed -i '/^#src-git luci https:\/\/github.com\/coolsnowwolf\/luci$/s/^#//' openwrt/feeds.conf.default
+sed -i '/^src-git luci https:\/\/github.com\/coolsnowwolf\/luci\.git;openwrt-23\.05$/s/^/#/' openwrt/feeds.conf.default
 
 #编译测试版内核
 #sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' openwrt/target/linux/x86/Makefile
