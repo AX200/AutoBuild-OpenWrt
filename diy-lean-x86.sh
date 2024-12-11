@@ -1,10 +1,6 @@
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.2.1/g' openwrt/package/base-files/files/bin/config_generate
 
-#编译指定版本
-git reset --hard 3022abc26c21639fd2ae05ae9efb2702c75b5b50 openwrt
-git pull openwrt
-
 #下载Adguardhome插件
 git clone https://github.com/rufengsuixing/luci-app-adguardhome.git openwrt/package/luci-app-adguardhome
 
