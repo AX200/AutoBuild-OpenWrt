@@ -37,6 +37,8 @@ jobs:
         REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git reset --hard 3022abc26c21639fd2ae05ae9efb2702c75b5b50
+        git pull
 
     - name: 执行自定义脚本
       run: |
