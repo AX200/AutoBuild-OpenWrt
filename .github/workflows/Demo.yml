@@ -26,14 +26,17 @@ jobs:
       run: |
         sudo mkdir /mnt/workspace
         sudo chown $USER:$GROUPS /mnt/workspace
-        cp * /mnt/workspace
         pwd
         cd /mnt/workspace
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        pwd
+        cp * /mnt/workspace/openwrt
+        pwd
         
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
+        pwd
         chmod +x ./diy-lean-x86.sh && ./diy-lean-x86.sh
         
     - name: 更新 & 安装 feeds
@@ -45,7 +48,7 @@ jobs:
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
       run: |
-        cd openwrt && make defconfig
+        mv lean-x86.config .config  && make defconfig
         
     - name: 下载包文件
       working-directory: /mnt/workspace/openwrt
