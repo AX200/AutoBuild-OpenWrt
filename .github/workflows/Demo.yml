@@ -26,6 +26,8 @@ jobs:
       run: |
         sudo mkdir /mnt/workspace
         sudo chown $USER:$GROUPS /mnt/workspace
+        cp * /mnt/workspace
+        pwd
         cd /mnt/workspace
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         
