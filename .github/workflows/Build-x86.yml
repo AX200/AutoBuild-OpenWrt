@@ -1,4 +1,4 @@
-name: Build-X86
+name: Build-X86-ALL
 
 on: 
   repository_dispatch:
@@ -35,7 +35,7 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-1.sh && ./diy-1.sh
+        chmod +x ./diy-x86.sh && ./diy-x86.sh
         
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt

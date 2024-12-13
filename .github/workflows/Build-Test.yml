@@ -1,4 +1,4 @@
-name: Build-RAX3000M
+name: Build-Test
 
 on: 
   repository_dispatch:
@@ -35,7 +35,7 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-rax3000m.sh && ./diy-rax3000m.sh
+        chmod +x ./diy-test.sh && ./diy-test.sh
         
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
@@ -47,7 +47,7 @@ jobs:
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
       run: |
-        mv lean-rax3000m.config .config  && make defconfig
+        mv lean-test.config .config  && make defconfig
         
     - name: 下载包文件
       working-directory: /mnt/workspace/openwrt
@@ -62,8 +62,8 @@ jobs:
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/rax3000m-sysupgrade.bin
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/rax3000m-factory.bin
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz /mnt/workspace/openwrt-test.img.gz
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk /mnt/workspace/openwrt-test.vmdk
 
     - name: 删除配置
       working-directory: /mnt/workspace/openwrt
@@ -71,16 +71,16 @@ jobs:
         rm -rf .config
 
 ##################################上传固件##############################################
-    - name : 上传固件rax3000m
+    - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-rax3000m-sysupgrade
+        name: openwrt-test
         path: |
-          /mnt/workspace/rax3000m-sysupgrade.bin
+          /mnt/workspace/openwrt-test.img.gz
     
-    - name : 上传固件rax3000m
+    - name : 上传固件vmdk
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-rax3000m-factory
+        name: openwrt-test-vmdk
         path: |
-          /mnt/workspace/rax3000m-factory.bin
+          /mnt/workspace/openwrt-test.vmdk
