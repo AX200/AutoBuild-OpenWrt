@@ -32,7 +32,7 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         
     - name: 执行自定义脚本
-      working-directory: /mnt/workspace
+      working-directory: /mnt/workspace/openwrt
       run: |
         chmod +x ./diy-lean-x86.sh && ./diy-lean-x86.sh
         
@@ -43,10 +43,8 @@ jobs:
         ./scripts/feeds install -a
       
     - name: 自定义配置
-      env:
-        CONFIG_FILE: 'lean-x86.config'
+      working-directory: /mnt/workspace/openwrt
       run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
     - name: 下载包文件
