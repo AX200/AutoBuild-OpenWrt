@@ -45,6 +45,7 @@ jobs:
         sudo chown $USER:$GROUPS /mnt/workspace
         cd /mnt/workspace
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
         git reset 841d0828246c69d5f74d7700547c701faf1ed2fb
         cp /home/runner/work/AutoBuild-OpenWrt/AutoBuild-OpenWrt/* /mnt/workspace/openwrt
 
