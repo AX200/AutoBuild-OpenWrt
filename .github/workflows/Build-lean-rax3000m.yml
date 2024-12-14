@@ -1,4 +1,4 @@
-name: Build-RAX3000M
+name: Build-rax3000m
 
 on: 
   repository_dispatch:
@@ -17,8 +17,9 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         set +e
-        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libncurses-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz genisoimage msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
 
+############################################################################################################
     - name: 下载源代码
       env: 
         REPO_URL: https://github.com/coolsnowwolf/lede
@@ -30,55 +31,44 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cp /home/runner/work/AutoBuild-OpenWrt/AutoBuild-OpenWrt/* /mnt/workspace/openwrt
 
-##################################自定义配置##################################################
-
+############################################################################################################
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
         chmod +x ./diy-rax3000m.sh && ./diy-rax3000m.sh
-        
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-##################################OpenWrt-rax3000m####################################################
+############################################################################################################
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
       run: |
         mv lean-rax3000m.config .config  && make defconfig
-        
     - name: 下载包文件
       working-directory: /mnt/workspace/openwrt
       run: |
         make download -j8
-
     - name: 编译固件
       working-directory: /mnt/workspace/openwrt
       run: |
         make -j8
-    
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
         cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/rax3000m-sysupgrade.bin
         cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/rax3000m-factory.bin
 
-    - name: 删除配置
-      working-directory: /mnt/workspace/openwrt
-      run: |
-        rm -rf .config
-
-##################################上传固件##############################################
-    - name : 上传固件rax3000m
+############################################################################################################
+    - name : 上传固件
       uses: actions/upload-artifact@master
       with:
         name: openwrt-rax3000m-sysupgrade
         path: |
-          /mnt/workspace/rax3000m-sysupgrade.bin
-    
-    - name : 上传固件rax3000m
+          /mnt/workspace/rax3000m-sysupgrade.bin    
+    - name : 上传固件
       uses: actions/upload-artifact@master
       with:
         name: openwrt-rax3000m-factory
