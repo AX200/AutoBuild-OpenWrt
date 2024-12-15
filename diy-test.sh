@@ -1,11 +1,11 @@
 #修改默认IP地址
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
 #下载Adguardhome插件
 git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
 
 #下载关机插件
-git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
+#git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 #下载Argon主题
 #git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
