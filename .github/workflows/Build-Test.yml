@@ -38,7 +38,7 @@ jobs:
 ############################################################################################################
     - name: 下载源代码
       env: 
-        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_URL: https://github.com/immortalwrt/immortalwrt
         REPO_BRANCH: master
       run: |
         sudo mkdir /mnt/workspace
