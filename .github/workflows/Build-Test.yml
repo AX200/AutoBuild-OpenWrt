@@ -51,7 +51,7 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-test.sh && ./diy-test.sh
+        chmod +x ./diy-x86.sh && ./diy-x86.sh
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
       run: |
@@ -83,7 +83,7 @@ jobs:
       with:
         name: openwrt-test
         path: |
-          /mnt/workspace/openwrt-test.img.gz    
+          /mnt/workspace/openwrt-test.img.gz
     - name : 上传固件vmdk
       uses: actions/upload-artifact@master
       with:
