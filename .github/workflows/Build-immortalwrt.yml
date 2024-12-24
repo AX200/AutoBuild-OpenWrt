@@ -62,7 +62,7 @@ jobs:
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
       run: |
-        mv lean-x86.config .config  && make defconfig
+        mv immortalwrt.config .config  && make defconfig
     - name: 编译固件
       working-directory: /mnt/workspace/openwrt
       run: |
