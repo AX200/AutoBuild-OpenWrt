@@ -1,8 +1,9 @@
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
-#修改防火墙WAN口配置
-sed -i '22,22s/REJECT/ACCEPT/g' package/network/config/firewall/files/firewall.config
+#修改防火墙配置
+sed -i "1i\uci set firewall.@zone[1].input='ACCEPT'" package/emortal/default-settings/files/99-default-settings-chinese
+sed -i '2i\uci commit network' package/emortal/default-settings/files/99-default-settings-chinese
 
 #删除登录密码
 #sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
