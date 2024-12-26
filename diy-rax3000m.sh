@@ -1,7 +1,7 @@
 #修改默认IP地址
 #sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-sed -i "1i\uci set network.lan.ipaddr='192.168.10.1'" package/lean/default-settings/files/zzz-default-settings
-sed -i '2i\uci commit network' package/lean/default-settings/files/zzz-default-settings
+#sed -i "1i\uci set network.lan.ipaddr='192.168.10.1'" package/lean/default-settings/files/zzz-default-settings
+#sed -i '2i\uci commit network' package/lean/default-settings/files/zzz-default-settings
 
 #删除登录密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
