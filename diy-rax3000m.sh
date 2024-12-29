@@ -13,8 +13,8 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/f
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 #下载Argon主题
-#git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
+#git clone https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 
 #添加Passwall源到feeds文件
 #sed -i '$a src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main' feeds.conf.default
