@@ -1,8 +1,5 @@
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/luci2/bin/config_generate
-#sed -i "1i\uci set network.lan.ipaddr='192.168.2.1'" package/lean/default-settings/files/zzz-default-settings
-#sed -i '2i\uci commit network' package/lean/default-settings/files/zzz-default-settings
-
 
 #删除登录密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
@@ -26,4 +23,4 @@ sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;ma
 #sed -i '/^src-git luci https:\/\/github.com\/coolsnowwolf\/luci\.git;openwrt-23\.05$/s/^/#/' feeds.conf.default
 
 #编译测试版内核
-#sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
+sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' target/linux/x86/Makefile
