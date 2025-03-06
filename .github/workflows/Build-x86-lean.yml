@@ -1,4 +1,4 @@
-name: Build-x86
+name: Build-x86-lean
 
 on: 
   repository_dispatch:
@@ -52,7 +52,7 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-x86.sh && ./diy-x86.sh
+        chmod +x ./diy-x86-lean.sh && ./diy-x86-lean.sh
         
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
@@ -79,12 +79,12 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-x86
+        name: lean-x86
         path: |
           /mnt/workspace/openwrt-x86.img.gz
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-x86-vmdk
+        name: lean-x86-vmdk
         path: |
           /mnt/workspace/openwrt-x86.vmdk

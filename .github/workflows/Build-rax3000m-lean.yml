@@ -1,4 +1,4 @@
-name: Build-rax3000m
+name: Build-rax3000m-lean
 
 on: 
   repository_dispatch:
@@ -52,7 +52,7 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-rax3000m.sh && ./diy-rax3000m.sh
+        chmod +x ./diy-rax3000m-lean.sh && ./diy-rax3000m-lean.sh
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
       run: |
@@ -82,12 +82,12 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-rax3000m-sysupgrade
+        name: lean-rax3000m-sysupgrade
         path: |
           /mnt/workspace/rax3000m-sysupgrade.bin    
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: openwrt-rax3000m-factory
+        name: lean-rax3000m-factory
         path: |
           /mnt/workspace/rax3000m-factory.bin

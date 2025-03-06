@@ -1,0 +1,87 @@
+name: Build-rax3000m-immortalwrt
+
+on: 
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: 检查系统
+      uses: actions/checkout@master
+
+    - name: 查看机器配置
+      run: |
+        echo "警告⚠"
+        echo "分配的服务器性能有限，若选择的插件过多，务必注意CPU性能！"
+        echo -e "CPU性能排序: 7763 > 8370C > 8272CL > 8171M > E5-2673\n"
+        echo "--------------------------CPU信息--------------------------"
+        echo "CPU物理数量: $(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)"
+        echo "CPU核心数量: $(nproc)"
+        echo -e "CPU型号信息:$(cat /proc/cpuinfo | grep -m1 name | awk -F: '{print $2}')\n"
+        echo "--------------------------内存信息--------------------------"
+        echo "已安装内存详细信息:"
+        echo -e "$(sudo lshw -short -C memory | grep GiB)\n"
+        echo "--------------------------硬盘信息--------------------------"
+        echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
+        
+    - name: 安装依赖和更新
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        set +e
+        sudo -E apt update
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+
+############################################################################################################
+    - name: 下载源代码
+      env: 
+        REPO_URL: https://github.com/immortalwrt/immortalwrt
+        REPO_BRANCH: master
+      run: |
+        sudo mkdir /mnt/workspace
+        sudo chown $USER:$GROUPS /mnt/workspace
+        cd /mnt/workspace
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        cp /home/runner/work/AutoBuild-OpenWrt/AutoBuild-OpenWrt/* /mnt/workspace/openwrt
+
+############################################################################################################
+    - name: 执行自定义脚本
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        chmod +x ./diy-rax3000m-immortalwrt.sh && ./diy-rax3000m-immortalwrt.sh
+    - name: 更新 & 安装 feeds
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+############################################################################################################
+    - name: 自定义配置
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        mv immortalwrt-rax3000m.config .config  && make defconfig
+    - name: 下载包文件
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        make download -j8
+    - name: 编译固件
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        make -j8
+    #- name: 固件保存
+      #working-directory: /mnt/workspace/openwrt
+      #run: |
+        #cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/rax3000m-sysupgrade.bin
+        #cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/rax3000m-factory.bin
+
+############################################################################################################
+    - name : 上传固件
+      uses: actions/upload-artifact@master
+      with:
+        name: immortalwrt-rax3000m-sysupgrade
+        path: |
+          /mnt/workspace/openwrt/bin/targets
