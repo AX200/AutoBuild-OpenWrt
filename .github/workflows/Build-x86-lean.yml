@@ -72,8 +72,8 @@ jobs:
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
-        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz /mnt/workspace/openwrt-x86.img.gz
-        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk /mnt/workspace/openwrt-x86.vmdk
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz /mnt/workspace/lean-x86.img.gz
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk /mnt/workspace/lean-x86.vmdk
 
 ############################################################################################################
     - name : 上传固件
@@ -81,10 +81,10 @@ jobs:
       with:
         name: lean-x86
         path: |
-          /mnt/workspace/openwrt-x86.img.gz
+          /mnt/workspace/lean-x86.img.gz
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
         name: lean-x86-vmdk
         path: |
-          /mnt/workspace/openwrt-x86.vmdk
+          /mnt/workspace/lean-x86.vmdk

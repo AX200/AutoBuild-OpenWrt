@@ -75,8 +75,8 @@ jobs:
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/rax3000m-sysupgrade.bin
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/rax3000m-factory.bin
+        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/lean-rax3000m-sysupgrade.bin
+        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/lean-rax3000m-factory.bin
 
 ############################################################################################################
     - name : 上传固件
@@ -84,10 +84,10 @@ jobs:
       with:
         name: lean-rax3000m-sysupgrade
         path: |
-          /mnt/workspace/rax3000m-sysupgrade.bin    
+          /mnt/workspace/lean-rax3000m-sysupgrade.bin    
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
         name: lean-rax3000m-factory
         path: |
-          /mnt/workspace/rax3000m-factory.bin
+          /mnt/workspace/lean-rax3000m-factory.bin
