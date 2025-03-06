@@ -8,4 +8,4 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/f
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 
 #编译测试版内核
-sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' target/linux/mediatek/Makefile
+#sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=6.6/g' target/linux/mediatek/Makefile
