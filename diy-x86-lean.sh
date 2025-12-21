@@ -2,7 +2,8 @@
 # sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/luci2/bin/config_generate
 
 #新版修改默认IP地址
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/luci/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/luci/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
 #删除登录密码
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings
