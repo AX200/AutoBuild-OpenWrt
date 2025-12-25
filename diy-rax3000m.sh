@@ -1,5 +1,4 @@
 #修改默认IP地址
-#sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/luci/bin/config_generate
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 #删除登录密码

@@ -1,4 +1,4 @@
-name: Build-rax3000m-lean
+name: Build-x86
 
 on: 
   repository_dispatch:
@@ -52,7 +52,8 @@ jobs:
     - name: 执行自定义脚本
       working-directory: /mnt/workspace/openwrt
       run: |
-        chmod +x ./diy-rax3000m-lean.sh && ./diy-rax3000m-lean.sh
+        chmod +x ./diy-x86.sh && ./diy-x86.sh
+        
     - name: 更新 & 安装 feeds
       working-directory: /mnt/workspace/openwrt
       run: |
@@ -63,11 +64,7 @@ jobs:
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
       run: |
-        mv lean-rax3000m.config .config  && make defconfig
-    - name: 下载包文件
-      working-directory: /mnt/workspace/openwrt
-      run: |
-        make download -j8
+        mv lean-x86.config .config  && make defconfig
     - name: 编译固件
       working-directory: /mnt/workspace/openwrt
       run: |
@@ -75,19 +72,19 @@ jobs:
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-sysupgrade.bin /mnt/workspace/lean-rax3000m-sysupgrade.bin
-        cp /mnt/workspace/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-cmcc_rax3000m-nand-squashfs-factory.bin /mnt/workspace/lean-rax3000m-factory.bin
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz /mnt/workspace/lean-x86.img.gz
+        cp /mnt/workspace/openwrt/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk /mnt/workspace/lean-x86.vmdk
 
 ############################################################################################################
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-rax3000m-sysupgrade
+        name: lean-x86
         path: |
-          /mnt/workspace/lean-rax3000m-sysupgrade.bin    
+          /mnt/workspace/lean-x86.img.gz
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-rax3000m-factory
+        name: lean-x86-vmdk
         path: |
-          /mnt/workspace/lean-rax3000m-factory.bin
+          /mnt/workspace/lean-x86.vmdk
