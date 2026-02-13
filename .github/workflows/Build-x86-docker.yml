@@ -65,10 +65,15 @@ jobs:
       working-directory: /mnt/workspace/openwrt
       run: |
         mv lean-x86-docker.config .config  && make defconfig
+    
+    - name: 下载包文件
+      working-directory: /mnt/workspace/openwrt
+      run: |
+        make download -j16
     - name: 编译固件
       working-directory: /mnt/workspace/openwrt
       run: |
-        make -j8
+        make -j16
     - name: 固件保存
       working-directory: /mnt/workspace/openwrt
       run: |
