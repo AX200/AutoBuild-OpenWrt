@@ -83,12 +83,12 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-x86
+        name: lean-x86.zip
         path: |
           /mnt/workspace/lean-x86.img.gz
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-x86-vmdk
+        name: lean-x86-vmdk.zip
         path: |
           /mnt/workspace/lean-x86.vmdk

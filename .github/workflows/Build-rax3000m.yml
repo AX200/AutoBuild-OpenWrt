@@ -82,12 +82,12 @@ jobs:
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-rax3000m-sysupgrade
+        name: lean-rax3000m-sysupgrade.zip
         path: |
           /mnt/workspace/lean-rax3000m-sysupgrade.bin    
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
-        name: lean-rax3000m-factory
+        name: lean-rax3000m-factory.zip
         path: |
           /mnt/workspace/lean-rax3000m-factory.bin
