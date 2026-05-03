@@ -10,6 +10,9 @@ git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci
 #下载Argon主题
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 
+#下载关机插件
+git clone https://github.com/esirplayground/luci-app-poweroff.git package/luci-app-poweroff
+
 #添加Passwall源到feeds文件
 sed -i '$a src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' feeds.conf.default
 sed -i '$a src-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' feeds.conf.default
