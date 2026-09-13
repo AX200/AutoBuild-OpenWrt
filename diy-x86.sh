@@ -17,5 +17,8 @@ git clone https://github.com/esirplayground/luci-app-poweroff.git package/luci-a
 sed -i '$a src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main' feeds.conf.default
 sed -i '$a src-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main' feeds.conf.default
 
+#注释插件helloworld
+sed -i 's|^src-git helloworld https://github.com/fw876/helloworld\.git$|#&|' feeds.conf.default
+
 #编译测试版内核
 #sed -i 's/KERNEL_PATCHVER:=6.12/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
