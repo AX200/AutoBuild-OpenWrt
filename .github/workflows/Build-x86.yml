@@ -67,9 +67,6 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-        rm -rf feeds/packages/lang/golang
-        git clone https://github.com/sbwml/packages_lang_golang -b 27.x feeds/packages/lang/golang
-
 ############################################################################################################
     - name: 自定义配置
       working-directory: /mnt/workspace/openwrt
