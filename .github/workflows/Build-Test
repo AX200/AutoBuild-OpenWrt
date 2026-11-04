@@ -1,0 +1,97 @@
+name: Build-x86
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: 检查系统
+      uses: actions/checkout@master
+
+    - name: 查看机器配置
+      run: |
+        echo "警告⚠"
+        echo "分配的服务器性能有限，若选择的插件过多，务必注意CPU性能！"
+        echo -e "CPU性能排序: 7763 > 8370C > 8272CL > 8171M > E5-2673\n"
+        echo "--------------------------CPU信息--------------------------"
+        echo "CPU物理数量: $(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)"
+        echo "CPU核心数量: $(nproc)"
+        echo -e "CPU型号信息:$(cat /proc/cpuinfo | grep -m1 name | awk -F: '{print $2}')\n"
+        echo "--------------------------内存信息--------------------------"
+        echo "已安装内存详细信息:"
+        echo -e "$(sudo lshw -short -C memory | grep GiB)\n"
+        echo "--------------------------硬盘信息--------------------------"
+        echo "硬盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
+        
+    - name: 安装依赖和更新
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        set +e
+        sudo apt update -y
+        sudo apt full-upgrade -y
+        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+        bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
+        genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
+        libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
+        libreadline-dev libssl-dev libtool llvm lrzsz libnsl-dev ninja-build p7zip p7zip-full patch pkgconf \
+        python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
+        swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+
+############################################################################################################
+    - name: 下载源代码
+      env: 
+        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_BRANCH: master
+      run: |
+
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+
+############################################################################################################
+    - name: 执行自定义脚本
+
+      run: |
+        chmod +x ./diy-x86.sh && ./diy-x86.sh
+        
+    - name: 更新 & 安装 feeds
+
+      run: |
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+############################################################################################################
+    - name: 自定义配置
+
+      run: |
+        mv lean-x86.config .config  && make defconfig
+        
+    - name: 下载包文件
+    
+      run: |
+        make download -j16
+    
+    - name: 编译固件
+    
+      run: |
+        make -j16
+    
+    - name: 固件保存
+    
+      run: |
+        cp openwrt-x86-64-generic-squashfs-combined-efi.img.gz lean-x86.img.gz
+        cp openwrt-x86-64-generic-squashfs-combined-efi.vmdk lean-x86.vmdk
+
+############################################################################################################
+    - name : 上传固件
+      uses: actions/upload-artifact@master
+      with:
+        name: lean-x86
+        path: |
+          lean-x86.img.gz
+    - name : 上传固件
+      uses: actions/upload-artifact@master
+      with:
+        name: lean-x86-vmdk
+        path: |
+          lean-x86.vmdk
